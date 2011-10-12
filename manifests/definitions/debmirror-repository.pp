@@ -94,7 +94,7 @@ define debmirror::repository(
     cron { "debmirror-cronjob-${repository}":
         ensure  => "${ensure}",
         command => "${debmirror::params::homedir}/bin/run_ftpsync ${repository}",
-        user    => "${debmirror::params::user}",
+        user    => "root",
         minute  => "${minute}",
         hour    => "${hour}",
     }
