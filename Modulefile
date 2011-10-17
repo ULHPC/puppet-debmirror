@@ -1,7 +1,7 @@
 name       'debmirror'
 version    '0.0.2'
 source     'git-admin.uni.lu:puppet-repo.git'
-author     'Hyacinthe Cartiaux (hyacinthe.cartiaux@free.fr)'
+author     'Hyacinthe Cartiaux (hyacinthe.cartiaux@uni.lu)'
 license    'GPL v3'
 summary    'Manage Debian mirror'
 description 'Manage Debian mirror'

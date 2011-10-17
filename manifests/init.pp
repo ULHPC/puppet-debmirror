@@ -1,5 +1,5 @@
 # File::      init.pp
-# Author::    Hyacinthe Cartiaux (hyacinthe.cartiaux@free.fr)
+# Author::    Hyacinthe Cartiaux (hyacinthe.cartiaux@uni.lu)
 # Copyright:: Copyright (c) 2011 Hyacinthe Cartiaux
 # License::   GPLv3
 #

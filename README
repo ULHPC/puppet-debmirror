@@ -1,5 +1,5 @@
 File::      <tt>README</tt> 
-Author::    Hyacinthe Cartiaux (hyacinthe.cartiaux@free.fr)
+Author::    Hyacinthe Cartiaux (hyacinthe.cartiaux@uni.lu)
 Copyright:: Copyright (c) 2011 Hyacinthe Cartiaux
 License::   GPLv3
 
@@ -36,7 +36,7 @@ Manage Debian mirror
 = Author/Licence
 
 The debmirror module is 
-Copyright (c) 2011 Hyacinthe Cartiaux[mailto:hyacinthe.cartiaux@free.fr]. 
+Copyright (c) 2011 Hyacinthe Cartiaux[mailto:hyacinthe.cartiaux@uni.lu]. 
 
 It is a free software: you can redistribute it and/or modify it under the terms
 of the GNU General Public License as published by the Free Software Foundation,
