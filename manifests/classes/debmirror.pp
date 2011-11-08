@@ -93,7 +93,7 @@ class debmirror::common {
         exec { 'debmirror_mkdir_datadir':
             path    => [ '/bin', '/usr/bin' ],
             command => "mkdir -p ${debmirror::params::datadir}",
-            unless  => "test -d /opt/${cert_dir}",
+            unless  => "test -d ${debmirror::params::datadir}",
         }
 
         file { "${debmirror::params::datadir}":
