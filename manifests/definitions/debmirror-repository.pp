@@ -21,6 +21,9 @@
 #   The basic property that the resource should be in. Valid values are present,
 #   absent.
 #
+# [*cron*]
+#   If set to yes, the repository will be synced regularly by a cron job.
+#
 # [*hour*] , [*minute*]
 #   The time at which the repository whill be synchronized.
 #
@@ -44,6 +47,7 @@
 define debmirror::repository(
     $mirror,
     $arch   = $debmirror::params::arch,
+    $cron   = $debmirror::params::cron,
     $hour   = '2',
     $minute = '0',
     $ensure = 'present'
@@ -91,8 +95,14 @@ define debmirror::repository(
 
     # Cronjob
 
+    $ensure_cron = $cron ? { 
+         'yes' => "${ensure}",
+         'no'  => "absent",
+         default  => 'absent'
+    }
+
     cron { "debmirror-cronjob-${repository}":
-        ensure  => "${ensure}",
+        ensure  => "${ensure_cron}",
         command => "${debmirror::params::homedir}/bin/run_ftpsync ${repository}",
         user    => "root",
         minute  => "${minute}",

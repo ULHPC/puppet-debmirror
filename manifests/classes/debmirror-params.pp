@@ -66,6 +66,11 @@ class debmirror::params {
         default => "${debmirror_archvsync_gitsrc}"
     }
 
+    $cron = $debmirror_cron ? {
+        ''      => 'yes',
+        default => "yes"
+    }
+
 
     #### MODULE INTERNAL VARIABLES  #########
     # (Modify to adapt to unsupported OSes)
