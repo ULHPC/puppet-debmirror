@@ -133,7 +133,7 @@ class debmirror::common {
             targetdir => "${debmirror::params::archvsync_dir}",
             source    => "${debmirror::params::archvsync_gitsrc}",
             ensure    => "${debmirror::params::ensure}",
-            user      => "${debmirror::params::user}",
+            #user      => "${debmirror::params::user}",
             require   => File["${debmirror::params::homedir}"],
         }
 
