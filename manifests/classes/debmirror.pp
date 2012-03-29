@@ -11,6 +11,8 @@
 # == Parameters:
 #
 # $ensure:: *Default*: 'present'. Ensure the presence (or absence) of debmirror
+# $allowed_hosts:: *Default*: '*'. Specification of the hosts which can mount
+#           this debmirror directory via NFS.
 #
 # == Actions:
 #
@@ -39,7 +41,11 @@
 #
 # [Remember: No empty lines between comments and class definition]
 #
-class debmirror( $ensure = $debmirror::params::ensure ) inherits debmirror::params
+class debmirror(
+    $ensure        = $debmirror::params::ensure,
+    $allowed_hosts = $debmirror::params::allowed_hosts
+)
+inherits debmirror::params
 {
     info ("Configuring debmirror (with ensure = ${ensure})")
 
@@ -80,6 +86,21 @@ class debmirror::common {
         shell      => '/bin/bash',
     }
 
+    # NFS
+    if (! defined( Class['nfs::server'] )) {
+        class { 'nfs::server':
+            ensure     => "${debmirror::ensure}",
+            nb_servers => '64'
+        }
+    }
+    nfs::server::export { "${debmirror::params::datadir}":
+        comment       => "This directory exports the local Debian mirror",
+        ensure        => "${debmirror::ensure}",
+        allowed_hosts => "${debmirror::allowed_hosts}",
+        options       => 'async,ro,no_root_squash,no_subtree_check',
+        require       => File["${debmirror::params::datadir}"]
+    }
+
     if $debmirror::ensure == 'present' {
 
         file { "${debmirror::params::homedir}":
@@ -116,16 +137,16 @@ class debmirror::common {
             require   => File["${debmirror::params::homedir}"],
         }
 
-    
-        file { [ "${debmirror::params::homedir}/bin", 
-                 "${debmirror::params::homedir}/etc", 
-                 "${debmirror::params::homedir}/log" 
+
+        file { [ "${debmirror::params::homedir}/bin",
+                 "${debmirror::params::homedir}/etc",
+                 "${debmirror::params::homedir}/log"
                  ]:
-            owner   => "${debmirror::params::configfile_owner}",
-            group   => "${debmirror::params::configfile_group}",
-            mode    => "${debmirror::params::configfile_mode}",
-            ensure  => 'directory',
-            require => File["${debmirror::params::homedir}"],
+                     owner   => "${debmirror::params::configfile_owner}",
+                     group   => "${debmirror::params::configfile_group}",
+                     mode    => "${debmirror::params::configfile_mode}",
+                     ensure  => 'directory',
+                     require => File["${debmirror::params::homedir}"],
         }
 
         #################################
@@ -160,7 +181,7 @@ class debmirror::common {
             target  => "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}/etc/common",
             require => File["${debmirror::params::homedir}/etc"],
         }
-        
+
 
         #################################
         # ~/log

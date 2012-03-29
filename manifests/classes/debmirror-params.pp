@@ -35,6 +35,13 @@ class debmirror::params {
         default => "${debmirror_ensure}"
     }
 
+    # Specification of the hosts which can mount this debmirror directory via NFS.
+    $allowed_hosts = $debmirror_allowed_hosts ? {
+        ''      => '*',
+        default => "${debmirror_allowed_hosts}"
+    } 
+
+    
     # source / all / amd64 / 190Go
     $arch = $debmirror_arch ? {
         ''      => 'amd64',
