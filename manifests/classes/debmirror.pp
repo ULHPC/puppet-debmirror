@@ -129,11 +129,10 @@ class debmirror::common {
         # ~/archvsync
         # Clone the ftpsync scriptset from Debian git repository
         git::clone { "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}":
-            basedir   => "${debmirror::params::homedir}",
-            targetdir => "${debmirror::params::archvsync_dir}",
+            path      => "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}",
             source    => "${debmirror::params::archvsync_gitsrc}",
             ensure    => "${debmirror::params::ensure}",
-            #user      => "${debmirror::params::user}",
+            #user     => "${debmirror::params::user}",
             require   => File["${debmirror::params::homedir}"],
         }
 
