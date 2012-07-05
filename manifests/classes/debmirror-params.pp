@@ -59,7 +59,7 @@ class debmirror::params {
     }
 
     $datadir = $debmirror_datadir ? {
-        ''      => '/data/debmirror',
+        ''      => '/export/debmirror',
         default => "${debmirror_homedir}"
     }
 

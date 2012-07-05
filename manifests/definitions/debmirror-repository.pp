@@ -59,7 +59,7 @@ define debmirror::repository(
     # $name is provided by define invocation and is the name of the directory 
     # used in the ftpsync configuration file
     $repository  = "${name}"
-    $mirror_dir  = "${debmirror::params::datadir}/${repository}"
+    $mirror_dir  = "${debmirror::datadir}/${repository}"
     $config_file = "${debmirror::params::homedir}/etc/ftpsync.${repository}.conf"
     $arch_exclude= join( array_del($debmirror::params::list_arch, $arch),
                          ' '

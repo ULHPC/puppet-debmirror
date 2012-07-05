@@ -14,7 +14,7 @@ MIRRORNAME=`hostname -f`
 ## Destination of the mirrored files. Should be an empty directory.
 ## CAREFUL, this directory will contain the mirror. Everything else
 ## that might have happened to be in there WILL BE GONE after the mirror sync!
-TO="<%= scope.lookupvar('debmirror::params::datadir') %>/<%= repository %>"
+TO="<%= scope.lookupvar('debmirror::datadir') %>/<%= repository %>"
 
 ## The upstream name of the rsync share.
 RSYNC_PATH="<%= repository %>"

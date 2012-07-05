@@ -43,7 +43,8 @@
 #
 class debmirror(
     $ensure        = $debmirror::params::ensure,
-    $allowed_hosts = $debmirror::params::allowed_hosts
+    $allowed_hosts = $debmirror::params::allowed_hosts,
+    $datadir       = $debmirror::params::datadir
 )
 inherits debmirror::params
 {
@@ -93,12 +94,12 @@ class debmirror::common {
             nb_servers => '64'
         }
     }
-    nfs::server::export { "${debmirror::params::datadir}":
+    nfs::server::export { "${debmirror::datadir}":
         comment       => "This directory exports the local Debian mirror",
         ensure        => "${debmirror::ensure}",
         allowed_hosts => "${debmirror::allowed_hosts}",
         options       => 'async,ro,no_root_squash,no_subtree_check',
-        require       => File["${debmirror::params::datadir}"]
+        require       => File["${debmirror::datadir}"]
     }
 
     if $debmirror::ensure == 'present' {
@@ -113,11 +114,11 @@ class debmirror::common {
 
         exec { 'debmirror_mkdir_datadir':
             path    => [ '/bin', '/usr/bin' ],
-            command => "mkdir -p ${debmirror::params::datadir}",
-            unless  => "test -d ${debmirror::params::datadir}",
+            command => "mkdir -p ${debmirror::datadir}",
+            unless  => "test -d ${debmirror::datadir}",
         }
 
-        file { "${debmirror::params::datadir}":
+        file { "${debmirror::datadir}":
             owner   => "${debmirror::params::configfile_owner}",
             group   => "${debmirror::params::configfile_group}",
             mode    => "${debmirror::params::configfile_mode}",
@@ -199,10 +200,10 @@ class debmirror::common {
         }
 
         # Delete debmiror data directory
-        exec { "rm -rf ${debmirror::params::datadir}":
+        exec { "rm -rf ${debmirror::datadir}":
             path    => "/usr/bin:/usr/sbin:/bin",
-            command => "rm -rf ${debmirror::params::datadir}",
-            onlyif  => "test -d ${debmirror::params::datadir}"
+            command => "rm -rf ${debmirror::datadir}",
+            onlyif  => "test -d ${debmirror::datadir}"
         }
 
     }
