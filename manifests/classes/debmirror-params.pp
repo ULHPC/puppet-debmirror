@@ -39,9 +39,9 @@ class debmirror::params {
     $allowed_hosts = $debmirror_allowed_hosts ? {
         ''      => '*',
         default => "${debmirror_allowed_hosts}"
-    } 
+    }
 
-    
+
     # source / all / amd64 / 190Go
     $arch = $debmirror_arch ? {
         ''      => 'amd64',
@@ -83,9 +83,9 @@ class debmirror::params {
     # (Modify to adapt to unsupported OSes)
     #######################################
 
-    $list_arch = ['alpha', 'amd64', 'arm', 'armel', 'hppa', 'hurd-i386', 'i386',
-                  'ia64', 'kfreebsd-amd64', 'kfreebsd-i386', 'm68k', 'mipsel',
-                  'mips', 'powerpc', 's390', 'sparc']
+    $list_arch = ['alpha', 'amd64', 'arm', 'arm64', 'armel', 'armhf', 'hppa', 'hurd-i386', 'i386', 'ia64', 'mips',
+                  'mipsel', 'powerpc', 'ppc64el', 's390', 's390x', 'sparc', 'kfreebsd-i386', 'kfreebsd-amd64'
+                 ]
 
     $configdir_mode = $::operatingsystem ? {
         default => '0755',
