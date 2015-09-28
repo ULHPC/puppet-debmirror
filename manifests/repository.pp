@@ -61,7 +61,7 @@ define debmirror::repository(
     $repository  = $name
     $mirror_dir  = "${debmirror::datadir}/${repository}"
     $config_file = "${debmirror::params::homedir}/etc/ftpsync.${repository}.conf"
-    $arch_exclude= join(array_del($debmirror::params::list_arch, $arch), ' ')
+    $arch_exclude= join(delete($debmirror::params::list_arch, $arch), ' ')
 
     if ($ensure == 'absent')
     {
