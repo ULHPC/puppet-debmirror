@@ -15,12 +15,22 @@
 
 include 'debmirror::params'
 
-$names = ['ensure', 'protocol', 'port', 'packagename']
+$names = ["ensure", "allowed_hosts", "arch", "user", "homedir", "datadir", "archvsync_dir", "archvsync_gitsrc", "cron", "list_arch", "configdir_mode", "configfile_mode", "configfile_owner", "configfile_group"]
 
 notice("debmirror::params::ensure = ${debmirror::params::ensure}")
-notice("debmirror::params::protocol = ${debmirror::params::protocol}")
-notice("debmirror::params::port = ${debmirror::params::port}")
-notice("debmirror::params::packagename = ${debmirror::params::packagename}")
+notice("debmirror::params::allowed_hosts = ${debmirror::params::allowed_hosts}")
+notice("debmirror::params::arch = ${debmirror::params::arch}")
+notice("debmirror::params::user = ${debmirror::params::user}")
+notice("debmirror::params::homedir = ${debmirror::params::homedir}")
+notice("debmirror::params::datadir = ${debmirror::params::datadir}")
+notice("debmirror::params::archvsync_dir = ${debmirror::params::archvsync_dir}")
+notice("debmirror::params::archvsync_gitsrc = ${debmirror::params::archvsync_gitsrc}")
+notice("debmirror::params::cron = ${debmirror::params::cron}")
+notice("debmirror::params::list_arch = ${debmirror::params::list_arch}")
+notice("debmirror::params::configdir_mode = ${debmirror::params::configdir_mode}")
+notice("debmirror::params::configfile_mode = ${debmirror::params::configfile_mode}")
+notice("debmirror::params::configfile_owner = ${debmirror::params::configfile_owner}")
+notice("debmirror::params::configfile_group = ${debmirror::params::configfile_group}")
 
 #each($names) |$v| {
 #    $var = "debmirror::params::${v}"
