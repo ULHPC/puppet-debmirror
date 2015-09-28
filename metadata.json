@@ -1,0 +1,30 @@
+{
+  "name": "ULHPC-debmirror",
+  "version": "0.0.1",
+  "author": "S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team",
+  "mail": "hpc-sysadmins@uni.lu",
+  "summary": "Configure and manage Debian mirrors",
+  "description": "Configure and manage Debian mirrors",
+  "license": "GPL-3.0",
+  "source": "https://github.com/ULHPC/puppet-debmirror",
+  "docs_project": "ulhpc-puppet-debmirror",
+  "project_page": "https://github.com/ULHPC/puppet-debmirror",
+  "issues_url": "https://github.com/ULHPC/puppet-debmirror/issues",
+  "forge_url": "https://forge.puppetlabs.com/ULHPC/debmirror",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">=4.2.2 <5.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ],
+  "tags": ["debmirror", "debian", "mirror", "ftpsync", "apt"]
+}
