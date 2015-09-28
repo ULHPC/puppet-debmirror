@@ -15,7 +15,7 @@
 
 include 'debmirror::params'
 
-$names = ["ensure", "allowed_hosts", "arch", "user", "homedir", "datadir", "archvsync_dir", "archvsync_gitsrc", "cron", "list_arch", "configdir_mode", "configfile_mode", "configfile_owner", "configfile_group"]
+$names = ['ensure', 'allowed_hosts', 'arch', 'user', 'homedir', 'datadir', 'archvsync_dir', 'archvsync_gitsrc', 'cron', 'list_arch', 'configdir_mode', 'configfile_mode', 'configfile_owner', 'configfile_group']
 
 notice("debmirror::params::ensure = ${debmirror::params::ensure}")
 notice("debmirror::params::allowed_hosts = ${debmirror::params::allowed_hosts}")

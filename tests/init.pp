@@ -16,5 +16,20 @@
 #      sudo puppet apply -t /vagrant/tests/init.pp
 #
 node default {
-    include debmirror
+
+    class { 'debmirror':
+        ensure        => 'present',
+        allowed_hosts => '10.1.0.0/16',
+        datadir       => '/export/debmirror'
+    }
+
+    debmirror::repository { 'debian':
+        ensure => 'present'
+        mirror => 'ftp.fr.debian.org',
+        arch   => 'amd64',
+        hour   => '5',
+        minute => '05',
+        cron   => 'yes',
+    }
+
 }
