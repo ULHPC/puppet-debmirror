@@ -15,7 +15,7 @@
 
 include 'debmirror::params'
 
-$names = ["ensure", "protocol", "port", "packagename"]
+$names = ['ensure', 'protocol', 'port', 'packagename']
 
 notice("debmirror::params::ensure = ${debmirror::params::ensure}")
 notice("debmirror::params::protocol = ${debmirror::params::protocol}")

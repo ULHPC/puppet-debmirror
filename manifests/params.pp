@@ -1,4 +1,4 @@
-# File::      <tt>debmirror-params.pp</tt>
+# File::      <tt>params.pp</tt>
 # Author::    Hyacinthe Cartiaux (hyacinthe.cartiaux@uni.lu)
 # Copyright:: Copyright (c) 2011 Hyacinthe Cartiaux
 # License::   GPL v3
@@ -30,52 +30,52 @@ class debmirror::params {
     ###########################################
 
     # ensure the presence (or absence) of debmirror
-    $ensure = $debmirror_ensure ? {
+    $ensure = $::debmirror_ensure ? {
         ''      => 'present',
-        default => "${debmirror_ensure}"
+        default => $::debmirror_ensure
     }
 
     # Specification of the hosts which can mount this debmirror directory via NFS.
-    $allowed_hosts = $debmirror_allowed_hosts ? {
+    $allowed_hosts = $::debmirror_allowed_hosts ? {
         ''      => '*',
-        default => "${debmirror_allowed_hosts}"
+        default => $::debmirror_allowed_hosts
     }
 
 
     # source / all / amd64 / 190Go
-    $arch = $debmirror_arch ? {
+    $arch = $::debmirror_arch ? {
         ''      => 'amd64',
-        default => "${debmirror_arch}"
+        default => $::debmirror_arch
     }
 
-    $user = $debmirror_user ? {
+    $user = $::debmirror_user ? {
         ''      => 'debmirror',
-        default => "${debmirror_user}"
+        default => $::debmirror_user
     }
 
-    $homedir = $debmirror_homedir ? {
+    $homedir = $::debmirror_homedir ? {
         ''      => '/var/lib/debmirror',
-        default => "${debmirror_homedir}"
+        default => $::debmirror_homedir
     }
 
-    $datadir = $debmirror_datadir ? {
+    $datadir = $::debmirror_datadir ? {
         ''      => '/export/debmirror',
-        default => "${debmirror_homedir}"
+        default => $::debmirror_homedir
     }
 
-    $archvsync_dir = $debmirror_archvsync_dir ? {
+    $archvsync_dir = $::debmirror_archvsync_dir ? {
         ''      => 'archvsync',
-        default => "${debmirror_archvsync_dir}"
+        default => $::debmirror_archvsync_dir
     }
 
-    $archvsync_gitsrc = $debmirror_archvsync_gitsrc ? {
+    $archvsync_gitsrc = $::debmirror_archvsync_gitsrc ? {
         ''      => 'https://ftp-master.debian.org/git/archvsync.git',
-        default => "${debmirror_archvsync_gitsrc}"
+        default => $::debmirror_archvsync_gitsrc
     }
 
-    $cron = $debmirror_cron ? {
+    $cron = $::debmirror_cron ? {
         ''      => 'yes',
-        default => "yes"
+        default => 'yes'
     }
 
 
@@ -84,8 +84,7 @@ class debmirror::params {
     #######################################
 
     $list_arch = ['alpha', 'amd64', 'arm', 'arm64', 'armel', 'armhf', 'hppa', 'hurd-i386', 'i386', 'ia64', 'mips',
-                  'mipsel', 'powerpc', 'ppc64el', 's390', 's390x', 'sparc', 'kfreebsd-i386', 'kfreebsd-amd64'
-                 ]
+                  'mipsel', 'powerpc', 'ppc64el', 's390', 's390x', 'sparc', 'kfreebsd-i386', 'kfreebsd-amd64' ]
 
     $configdir_mode = $::operatingsystem ? {
         default => '0755',
@@ -96,7 +95,7 @@ class debmirror::params {
     }
 
     $configfile_owner = $::operatingsystem ? {
-        default => "${user}",
+        default => $user,
     }
 
     $configfile_group = $::operatingsystem ? {

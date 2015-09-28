@@ -56,57 +56,55 @@ define debmirror::repository(
 
     include debmirror::params
 
-    # $name is provided by define invocation and is the name of the directory 
+    # $name is provided by define invocation and is the name of the directory
     # used in the ftpsync configuration file
-    $repository  = "${name}"
+    $repository  = $name
     $mirror_dir  = "${debmirror::datadir}/${repository}"
     $config_file = "${debmirror::params::homedir}/etc/ftpsync.${repository}.conf"
-    $arch_exclude= join( array_del($debmirror::params::list_arch, $arch),
-                         ' '
-                       )
+    $arch_exclude= join(array_del($debmirror::params::list_arch, $arch), ' ')
 
     if ($ensure == 'absent')
     {
         # Delete mirror directory
         exec { "rm -rf ${mirror_dir}":
-            path    => "/usr/bin:/usr/sbin:/bin",
+            path    => '/usr/bin:/usr/sbin:/bin',
             command => "rm -rf ${mirror_dir}",
             onlyif  => "test -d ${mirror_dir}"
         }
     }
 
-    file { "${mirror_dir}":
-        owner   => "${debmirror::params::configfile_owner}",
-        group   => "${debmirror::params::configfile_group}",
-        mode    => "${debmirror::params::configfile_mode}",
+    file { $mirror_dir:
         ensure  => 'directory',
-        require => User["${debmirror::params::user}"],
+        owner   => $debmirror::params::configfile_owner,
+        group   => $debmirror::params::configfile_group,
+        mode    => $debmirror::params::configfile_mode,
+        require => User[$debmirror::params::user],
     }
 
-    # Create ftpsync configuration file from template    
-    file { "${config_file}":
-        owner   => "${debmirror::params::configfile_owner}",
-        group   => "${debmirror::params::configfile_group}",
-        mode    => "${debmirror::params::configfile_mode}",
-        ensure  => "${ensure}",
-        content => template("debmirror/ftpsync.sample.conf.erb"),
+    # Create ftpsync configuration file from template
+    file { $config_file:
+        ensure  => $ensure,
+        owner   => $debmirror::params::configfile_owner,
+        group   => $debmirror::params::configfile_group,
+        mode    => $debmirror::params::configfile_mode,
+        content => template('debmirror/ftpsync.sample.conf.erb'),
         require => File["${debmirror::params::homedir}/etc"],
     }
 
     # Cronjob
 
-    $ensure_cron = $cron ? { 
-         'yes' => "${ensure}",
-         'no'  => "absent",
-         default  => 'absent'
+    $ensure_cron = $cron ? {
+        'yes' => $ensure,
+        'no'  => 'absent',
+        default  => 'absent'
     }
 
     cron { "debmirror-cronjob-${repository}":
-        ensure  => "${ensure_cron}",
+        ensure  => $ensure_cron,
         command => "${debmirror::params::homedir}/bin/run_ftpsync ${repository}",
-        user    => "root",
-        minute  => "${minute}",
-        hour    => "${hour}",
+        user    => 'root',
+        minute  => $minute,
+        hour    => $hour,
     }
 
 }
