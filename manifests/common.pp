@@ -14,8 +14,6 @@ class debmirror::common {
     # Load the variables used in this module. Check the debmirror-params.pp file
     require debmirror::params
 
-    include git
-
     ####################################
     # Create the user
     user { $debmirror::params::user:
@@ -69,14 +67,13 @@ class debmirror::common {
         ####################################
         # ~/archvsync
         # Clone the ftpsync scriptset from Debian git repository
-        git::clone { "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}":
-            ensure  => $debmirror::params::ensure,
-            path    => "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}",
-            source  => $debmirror::params::archvsync_gitsrc,
-            #user     => "${debmirror::params::user}",
-            require => File[$debmirror::params::homedir],
+        vcsrepo { "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}":
+            ensure   => $debmirror::params::ensure,
+            path     => "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}",
+            source   => $debmirror::params::archvsync_gitsrc,
+            provider => git,
+            require  => File[$debmirror::params::homedir]
         }
-
 
         file { [
           "${debmirror::params::homedir}/bin",
