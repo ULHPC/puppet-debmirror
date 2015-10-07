@@ -35,6 +35,8 @@ See `docs/contributing.md` for more details on the steps you shall follow to hav
 See [`metadata.json`](metadata.json). In particular, this module depends on 
 
 * [puppetlabs/stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
+* [puppetlabs/vcsrepo](https://forge.puppetlabs.com/puppetlabs/vcsrepo)
+* [ULHPC/nfs](https://forge.puppetlabs.com/ULHPC/nfs)
 
 ## Overview and Usage
 
