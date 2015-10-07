@@ -58,9 +58,10 @@ define debmirror::repository(
 
     # $name is provided by define invocation and is the name of the directory
     # used in the ftpsync configuration file
-    $repository  = $name
-    $mirror_dir  = "${debmirror::datadir}/${repository}"
-    $config_file = "${debmirror::params::homedir}/etc/ftpsync.${repository}.conf"
+    $repository   = $name
+    $mirror_dir   = "${debmirror::datadir}/${repository}"
+    $config_file  = "${debmirror::params::homedir}/etc/ftpsync.${repository}.conf"
+    $arch_exclude = join(delete($debmirror::params::list_arch, $arch), ' ')
 
     # Create ftpsync configuration file from template
     file { $config_file:
@@ -70,8 +71,6 @@ define debmirror::repository(
         mode    => $debmirror::params::configfile_mode,
         content => template('debmirror/ftpsync.sample.conf.erb'),
     }
-
-    $arch_exclude= join(delete($debmirror::params::list_arch, $arch), ' ')
 
     if ($ensure == 'absent')
     {
@@ -94,7 +93,7 @@ define debmirror::repository(
             require => File["${debmirror::params::homedir}/etc"],
         }
     }
-    
+
     # Cronjob
 
     $ensure_cron = $cron ? {
