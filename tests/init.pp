@@ -19,12 +19,12 @@ node default {
 
     class { 'debmirror':
         ensure        => 'present',
-        allowed_hosts => '10.1.0.0/16',
+        allowed_hosts => ['10.1.0.0/16'],
         datadir       => '/export/debmirror'
     }
 
     debmirror::repository { 'debian':
-        ensure => 'present'
+        ensure => 'present',
         mirror => 'ftp.fr.debian.org',
         arch   => 'amd64',
         hour   => '5',
