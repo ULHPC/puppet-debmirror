@@ -37,7 +37,6 @@ class debmirror::common {
         comment       => 'This directory exports the local Debian mirror',
         allowed_hosts => $debmirror::allowed_hosts,
         options       => 'async,ro,no_root_squash,no_subtree_check',
-        require       => File[$debmirror::datadir]
     }
 
     if $debmirror::ensure == 'present' {
