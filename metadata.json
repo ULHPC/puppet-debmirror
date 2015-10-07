@@ -22,7 +22,7 @@
     },
     {
       "name": "ULHPC-nfs",
-      "version_requirement": ">=0.1.1 <1.0.0"
+      "version_requirement": ">=0.1.5 <1.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -34,5 +34,5 @@
       ]
     }
   ],
-  "tags": ["debmirror", "debian", "mirror", "ftpsync", "apt"]
+  "tags": ["debmirror", "mirror", "ftpsync", "apt"]
 }
