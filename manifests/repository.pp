@@ -61,6 +61,16 @@ define debmirror::repository(
     $repository  = $name
     $mirror_dir  = "${debmirror::datadir}/${repository}"
     $config_file = "${debmirror::params::homedir}/etc/ftpsync.${repository}.conf"
+
+    # Create ftpsync configuration file from template
+    file { $config_file:
+        ensure  => $ensure,
+        owner   => $debmirror::params::configfile_owner,
+        group   => $debmirror::params::configfile_group,
+        mode    => $debmirror::params::configfile_mode,
+        content => template('debmirror/ftpsync.sample.conf.erb'),
+    }
+
     $arch_exclude= join(delete($debmirror::params::list_arch, $arch), ' ')
 
     if ($ensure == 'absent')
@@ -71,26 +81,20 @@ define debmirror::repository(
             command => "rm -rf ${mirror_dir}",
             onlyif  => "test -d ${mirror_dir}"
         }
-    }
+    } else {
+        file { $mirror_dir:
+            ensure  => 'directory',
+            owner   => $debmirror::params::configfile_owner,
+            group   => $debmirror::params::configfile_group,
+            mode    => $debmirror::params::configfile_mode,
+            require => User[$debmirror::params::user],
+        }
 
-    file { $mirror_dir:
-        ensure  => 'directory',
-        owner   => $debmirror::params::configfile_owner,
-        group   => $debmirror::params::configfile_group,
-        mode    => $debmirror::params::configfile_mode,
-        require => User[$debmirror::params::user],
+        File[$config_file] {
+            require => File["${debmirror::params::homedir}/etc"],
+        }
     }
-
-    # Create ftpsync configuration file from template
-    file { $config_file:
-        ensure  => $ensure,
-        owner   => $debmirror::params::configfile_owner,
-        group   => $debmirror::params::configfile_group,
-        mode    => $debmirror::params::configfile_mode,
-        content => template('debmirror/ftpsync.sample.conf.erb'),
-        require => File["${debmirror::params::homedir}/etc"],
-    }
-
+    
     # Cronjob
 
     $ensure_cron = $cron ? {
