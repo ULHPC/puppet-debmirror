@@ -84,7 +84,7 @@ class debmirror::params {
     #######################################
 
     $list_arch = ['alpha', 'amd64', 'arm', 'arm64', 'armel', 'armhf', 'hppa', 'hurd-i386', 'i386', 'ia64', 'mips',
-                  'mipsel', 'powerpc', 'ppc64el', 's390', 's390x', 'sparc', 'kfreebsd-i386', 'kfreebsd-amd64' ]
+                  'mipsel', 'mips64el', 'powerpc', 'ppc64el', 's390', 's390x', 'sparc', 'kfreebsd-i386', 'kfreebsd-amd64' ]
 
     $configdir_mode = $::operatingsystem ? {
         default => '0755',
