@@ -61,7 +61,7 @@ define debmirror::repository(
     $repository   = $name
     $mirror_dir   = "${debmirror::datadir}/${repository}"
     $config_file  = "${debmirror::params::homedir}/etc/ftpsync.${repository}.conf"
-    $arch_exclude = join(delete($debmirror::params::list_arch, $arch), ' ')
+    $arch_include = join(any2array($arch), ' ')
 
     # Create ftpsync configuration file from template
     file { $config_file:
