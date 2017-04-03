@@ -97,6 +97,14 @@ class debmirror::common {
             target  => "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}/bin/ftpsync",
             require => File["${debmirror::params::homedir}/bin"],
         }
+        file { "${debmirror::params::homedir}/bin/common":
+            ensure  => 'link',
+            owner   => $debmirror::params::configfile_owner,
+            group   => $debmirror::params::configfile_group,
+            mode    => $debmirror::params::configfile_mode,
+            target  => "${debmirror::params::homedir}/${debmirror::params::archvsync_dir}/bin/common",
+            require => File["${debmirror::params::homedir}/bin"],
+        }
 
         file { "${debmirror::params::homedir}/bin/run_ftpsync":
             ensure  => 'present',
